@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product |Details </title>
+    <style>
+        h1, h2{
+            margin-left:20px;
+        }
+        .class_1{
+            display:flex;
+        }
+        .class_1_1, .class_1_2{
+            margin:20px;
+        }
+       .class_1_1  img{
+            width:350px;
+        }
+        .class_1_2  img{
+            width:50px;
+        }
+        .active{
+            border: 2px solid rgb(59, 16,107);
+        }
+        .hide{
+            display:none;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>{{ jecks.brand }}</h1>
+    <h2>{{ jecks.name }}</h2>
+    <div class="class_1">
+        <div class="class_1_1">
+            <img src="{{ jecks.jacket_detail_set.first.picture }}" alt="" id= "picture">
+        </div>
+        <div class="class_1_2">
+            {% for j in jecks.jacket_detail_set.all %}
+                <div class="color">
+                    <h3 {% if not forloop.first %} class="hide"{% endif %}>{{j.color}}</h3>
+                </div>
+                <div class="picture ">
+                    <img src="{{j.picture}}" alt="" {% if forloop.first %} class="active"{% endif %} >
+                </div>
+                <br>
+                <div class="price">
+                    <select name="" id="" {% if not forloop.first %} class="hide"{% endif %}>
+                        <option> Size</option>
+                        <option value="{{j.priceS}}">S {{j.priceS}} $</option>
+                        <option value="{{j.priceM}}">M {{j.priceM}} $</option>
+                        <option value="{{j.priceL}}">L {{j.priceL}} $</option>
+                        <option value="{{j.priceXL}}">XL {{j.priceXL}} $</option>
+                        
+                    </select>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        picture = document.querySelector('#picture')
+        pictures = document.querySelector('.class_1_2').getElementsByTagName('img')
+        colors = document.querySelector('.class_1_2').getElementsByTagName('h3')
+        prices = document.querySelector('.class_1_2').getElementsByTagName('select')
+        choices = pictures.length
+        IndexOfActivePicture = 0;
+        for(let i=0; i < choices; i++ ){
+            pictures[i].addEventListener('mouseover', function(){
+                pictures[IndexOfActivePicture].classList.remove('active')
+                pictures[i].classList.add('active')
+                picture.src = pictures[i].src
+                colors[IndexOfActivePicture].classList.add('hide')
+                colors[i].classList.remove('hide')
+                
+                prices[IndexOfActivePicture].classList.add('hide')
+                prices[i].classList.remove('hide')
+                IndexOfActivePicture = i
+            })
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeckets | Products</title>
+    <style>
+        h1{
+            text-align: center;
+
+        }
+        .jacket_detail img{
+            width:300px;
+        }
+        .container{
+            display:flex;
+            
+        }
+        .jacket{
+            width:25%;
+            text-align:center;
+            margin:10px;
+        }
+
+    
+    
+    </style>
+</head>
+<body>
+
+<h1>This is Jecket Product</h1>
+<div class="container">
+    {% for j in jeck %}
+        <div class="jacket">
+            <h2> {{j.brand}} </h2>
+            <h3> {{j.name}} </h3>
+            <div class="jacket_detail">
+
+                <a href="/detail/{{j.id}}">
+                    <img src="{{ j.jacket_detail_set.first.picture }}" alt="">
+                </a>
+                <h4>{{ j.jacket_detail_set.first.priceS }} $</h4>
+                
+            </div>
+        </div>
+    {% endfor %}
+
+</div>
+    
+</body>
+</html>
